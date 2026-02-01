@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For Shanaia 💖</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffd6e8, #ffeaf4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><text y="20" font-size="20">💗</text></svg>'), auto;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      color: #ff4d88;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      margin: 0 auto;
+    }
+
+    button {
+      position: absolute;
+      padding: 14px 28px;
+      border-radius: 30px;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    #yesBtn {
+      background: #ff4d88;
+      color: white;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 20px;
+      box-shadow: 0 0 15px rgba(255,77,136,0.6);
+      transition: transform 0.3s ease;
+    }
+
+    #noBtn {
+      background: white;
+      color: #ff4d88;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .celebrate {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      animation: popIn 0.6s ease forwards;
+    }
+
+    .celebrate h2 {
+      font-size: 2.2rem;
+      color: #ff4d88;
+      margin-bottom: 10px;
+    }
+
+    .celebrate p {
+      font-size: 1.2rem;
+      color: #555;
+    }
+
+    .photo {
+      width: 260px;
+      max-width: 80vw;
+      border-radius: 25px;
+      margin: 20px 0;
+      box-shadow: 0 0 25px rgba(255,77,136,0.5);
+      animation: popIn 0.6s ease forwards;
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0.7);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff4d88;
+      font-size: 20px;
+      animation: floatUp 3s linear forwards;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-600px);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="main">
+    <h1>Shanaia, will you be my Valentine? 💘</h1>
+
+    <div class="buttons">
+      <button id="noBtn">NO 😈</button>
+      <button id="yesBtn">YES 💖</button>
+    </div>
+  </div>
+
+  <div class="container celebrate" id="celebration">
+    <h2>YAYYYYY 🥰💖</h2>
+
+    <!-- YOUR PHOTO -->
+    <img src="us.jpg" alt="Us 💕" class="photo">
+
+    <p>I knew you'd say yes, Shanaia 💕</p>
+    <p>Best decision ever 😌</p>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const main = document.getElementById("main");
+    const celebration = document.getElementById("celebration");
+
+    const noTexts = [
+      "WAIT 😭",
+      "Nope 😏",
+      "Try again",
+      "Wrong choice",
+      "Nice try 😌"
+    ];
+
+   function moveNoButton() {
+  const container = document.querySelector(".buttons");
+  const maxX = container.clientWidth - noBtn.offsetWidth;
+  const maxY = container.clientHeight - noBtn.offsetHeight;
+
+  const randX = Math.random() * maxX;
+  const randY = Math.random() * maxY;
+
+  noBtn.style.left = randX + "px";
+  noBtn.style.top = randY + "px";
+
+  noBtn.textContent = noTexts[Math.floor(Math.random() * noTexts.length)];
+
+  const currentScale = yesBtn.dataset.scale ? Number(yesBtn.dataset.scale) : 1;
+  const newScale = Math.min(currentScale + 0.05, 1.4);
+  yesBtn.dataset.scale = newScale;
+  yesBtn.style.transform = `translateX(-50%) scale(${newScale})`;
+}
+
+
+ ["mouseenter", "mousedown", "touchstart", "pointerdown"].forEach(event => {
+  noBtn.addEventListener(event, (e) => {
+    e.preventDefault();
+    moveNoButton();
+  });
+});
+
+
+    yesBtn.addEventListener("click", () => {
+      main.style.display = "none";
+      celebration.style.display = "flex";
+      launchHearts();
+    });
+
+    function launchHearts() {
+      for (let i = 0; i < 35; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.textContent = "💗";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.bottom = "0px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 3000);
+      }
+    }
+  </script>
+
+</body>
+</html>
